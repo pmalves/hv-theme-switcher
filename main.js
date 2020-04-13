@@ -113,7 +113,7 @@ function processItem(item, sourceArray, destinationArray){
 
     if ( item instanceof Text){
             
-        console.log("Found text... " )
+        //console.log("Found text... " )
 
         var styles = item.styleRanges;
 
@@ -124,7 +124,7 @@ function processItem(item, sourceArray, destinationArray){
     }
     else if (item instanceof Rectangle || item instanceof Ellipse){
 
-        console.log( "Found Rectangle or Ellipse");
+        //console.log( "Found Rectangle or Ellipse");
         replaceColor(item,"fill",sourceArray,destinationArray);
         replaceColor(item,"stroke",sourceArray,destinationArray);
     }
@@ -152,7 +152,7 @@ function processItem(item, sourceArray, destinationArray){
     }
     else{
         // Other elements
-        console.log("Unknown elemt: " + typeof item)
+        console.log("Unknown element: " + typeof item)
     }
 
 }
@@ -164,7 +164,7 @@ function replaceColor(elem, property, sourceArray, destinationArray){
         var c = getEquivalentColor(elem[property].toHex(1),sourceArray,destinationArray);
         if (c){
             // Transforming
-            console.log("Changing color: from " + elem[property].toHex(1) + " to " + c)
+            //console.log("Changing color: from " + elem[property].toHex(1) + " to " + c)
             elem[property] = new Color(c); 
         }
     }
@@ -175,10 +175,10 @@ function replaceColor(elem, property, sourceArray, destinationArray){
 function getEquivalentColor(color, sourceArray, destinationArray){
 
     const found = sourceArray.findIndex(element => element == color);
-    console.log("Searching for color: "+ color);
+    //console.log("Searching for color: "+ color);
 
     if( found >= 0 ){
-        console.log("Found color " + color + " in position " + found)
+        //console.log("Found color " + color + " in position " + found)
         return destinationArray[found];
     }
 
