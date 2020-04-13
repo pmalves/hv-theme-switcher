@@ -1,0 +1,31 @@
+{
+  "name" : "HV Theme Switcher",
+  "host" : {
+    "app" : "XD",
+    "minVersion" : "21.0"
+  },
+  "id" : "fda3b272",
+  "icons" : [ {
+    "path" : "images/icon@1x.png",
+    "width" : 24,
+    "height" : 24
+  }, {
+    "path" : "images/icon@2x.png",
+    "width" : 48,
+    "height" : 48
+  } ],
+  "uiEntryPoints" : [ {
+    "label" : "Switch to Dawn",
+    "type" : "menu",
+    "commandId" : "switchToDawn",
+    "shortcut": { "mac": "Cmd+Shift+D", "win": "Ctrl+Shift+D" }
+  } ,
+  {
+    "label" : "Switch to Wicked",
+    "type" : "menu",
+    "commandId" : "switchToWicked",
+    "shortcut": { "mac": "Cmd+Shift+W", "win": "Ctrl+Shift+W" }
+  }
+],
+  "version" : "0.0.1"
+}
