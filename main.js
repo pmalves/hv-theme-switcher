@@ -3,7 +3,7 @@
  */
 
 
-const {Rectangle, Color, Text } = require("scenegraph"); 
+const {Rectangle, Ellipse, Color, Text, Group, Artboard } = require("scenegraph"); 
 
 const DAWN_ARRAY = [
    // accent
@@ -95,7 +95,7 @@ const WICKED_ARRAY = [
  
 
 
-function switchTheme(selection, sourceArray, destinationArray){
+function switchTheme(selection, documentRoot, sourceArray, destinationArray){
 
     // Apply it...
     console.log("Switching HV theme");
@@ -103,30 +103,59 @@ function switchTheme(selection, sourceArray, destinationArray){
     for (let index = 0; index < selection.items.length; index++) {
         const item = selection.items[index];
         
-        if ( item instanceof Text){
-            
-            console.log("Found text... " )
-
-            var styles = item.styleRanges;
-
-            styles.map( styleRange => 
-                replaceColor( styleRange, "fill", sourceArray,destinationArray ) 
-            )
-            item.styleRanges = styles;
-        }
-        else if (item instanceof Rectangle){
-
-            console.log( "Found Rectangle");
-            replaceColor(item,"fill",sourceArray,destinationArray);
-            replaceColor(item,"stroke",sourceArray,destinationArray);
-        }
-        else{
-            // Other elements: Artboard / Group
-            console.log("Unknown elemt: " + typeof item)
-        }
+        processItem(item, sourceArray, destinationArray);
+        
     }
 }
 
+
+function processItem(item, sourceArray, destinationArray){
+
+    if ( item instanceof Text){
+            
+        console.log("Found text... " )
+
+        var styles = item.styleRanges;
+
+        styles.map( styleRange => 
+            replaceColor( styleRange, "fill", sourceArray,destinationArray ) 
+        )
+        item.styleRanges = styles;
+    }
+    else if (item instanceof Rectangle || item instanceof Ellipse){
+
+        console.log( "Found Rectangle or Ellipse");
+        replaceColor(item,"fill",sourceArray,destinationArray);
+        replaceColor(item,"stroke",sourceArray,destinationArray);
+    }
+    else if( item instanceof Artboard || item instanceof Group ){
+        // go one level down
+        if( item instanceof Artboard ){
+            replaceColor(item,"fill",sourceArray,destinationArray);
+        }
+
+        console.log("Going one level down...")
+        item.children.forEach(function(e,i){
+            //console.log("Here..." + e + i)
+            processItem(e, sourceArray, destinationArray)
+        })
+
+    }
+    else if( false ){
+        // go one level down
+        console.log("Going one level down...")
+        item.children.forEach(function(e,i){
+            console.log("Here..." + e + i)
+            // switchTheme(e, sourceArray, destinationArray)
+        })
+
+    }
+    else{
+        // Other elements
+        console.log("Unknown elemt: " + typeof item)
+    }
+
+}
 
 function replaceColor(elem, property, sourceArray, destinationArray){
     
@@ -157,15 +186,15 @@ function getEquivalentColor(color, sourceArray, destinationArray){
 
 }
 
-function switchToDawn(selection) {
+function switchToDawn(selection, documentRoot) {
 
-    switchTheme(selection, WICKED_ARRAY, DAWN_ARRAY);
+    switchTheme(selection, documentRoot, WICKED_ARRAY, DAWN_ARRAY);
 
 }
 
-function switchToWicked(selection) {
+function switchToWicked(selection, documentRoot) {
 
-    switchTheme(selection, DAWN_ARRAY, WICKED_ARRAY);
+    switchTheme(selection, documentRoot, DAWN_ARRAY, WICKED_ARRAY);
 }
 
 
