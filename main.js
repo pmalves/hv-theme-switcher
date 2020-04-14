@@ -5,97 +5,71 @@
 
 const {Rectangle, Ellipse, Color, Text, Group, Artboard } = require("scenegraph"); 
 
-const DAWN_ARRAY = [
-   // accent
-   "#414141",
-   "#146bd2",
-   "#4389db",
-   "#cc0000",
-   
-   // atmosphere
-   "#ffffff",
-   "#f9f9f9",
-   "#f5f5f5",
-   "#f0f0f0",
-   "#dedede",
-   "#bcbcbc",
-   "#999999",
-   
-   // semantic
-   // severity
-   "#519884",
-   "#d77314",
-   "#eb4a57",
-   "#c51162",
-   "#aa00ff",
-   
-   // negative alt
-   "#d77249",
-   "#d36041",
-   "#cf4e38",
-   "#cb3b30",
-   "#c62828",
-   
-   // positive/neutral alt
-   "#668fcd",
-   "#4d8ac0",
-   "#3388b1",
-   "#1a85a1",
-   "#00838f",
-   
-   // status & system feedback
-   "#669a1d",
-   "#d77314",
-   "#eb4a57"
-   ];
-   
-const WICKED_ARRAY = [
-    // accent
-    "#dedede",
-    "#146bd2",
-    "#4389db",
-    "#cc0000",
+const DAWN_THEME = 1;
+const WICKED_THEME = 2; 
+const THEMES_ARRAY = [
 
-    // atmosphere
-    "#393939",
-    "#424242",
-    "#494949",
-    "#545454",
-    "#626262",
-    "#2c2c2c",
-    "#919191",
+// accent
+// [".acce0","#ffffff","#ffffff"],
+[".acce1","#414141","#dedede"],
+[".acce2","#146bd2","#146bd2"],
+[".acce2h","#4389db","#4389db"],
+[".acce3","#cc0000","#cc0000"],
+		
+// atmosphere
+[".atmo1","#ffffff","#393939"],
+[".atmo2","#f9f9f9","#424242"],
+[".atmo3","#f5f5f5","#494949"],
+[".atmo4","#f0f0f0","#545454"],
+[".atmo5","#dedede","#626262"],
+[".atmo6","#bcbcbc","#2c2c2c"],
+[".atmo7","#999999","#919191"],
+		
+// semantic	
+// severity	
+[".sema2","#519884","#72cccb"],
+[".sema3","#d77314","#e68c17"],
+[".sema4","#eb4a57","#ff5e6c"],
+[".sema5","#c51162","#e26bd2"],
+[".sema6","#aa00ff","#928fff"],
+		
+// negative alt	
+[".sema10","#d77249","#f4cab0"],
+[".sema11","#d36041","#f1b7a0"],
+[".sema12","#cf4e38","#eea291"],
+[".sema13","#cb3b30","#e98b82"],
+[".sema14","#c62828","#e57373"],
+		
+// positive/neutral alt	
+[".sema15","#668fcd","#80deea"],
+[".sema16","#4d8ac0","#4dd0e1"],
+[".sema17","#3388b1","#26c6da"],
+[".sema18","#1a85a1","#00acc1"],
+[".sema19","#00838f","#00a0b7"],
+		
+// status & system feedback
+[".sema1","#669a1d","#63a621"],
+[".sema3","#d77314","#e68c17"],
+[".sema4","#eb4a57","#ff5e6c"],
+		
+// notifications
+[".sema20","#f9e3c5","#f9e3c5"],
+[".sema9","#f5d8d8","#f5d8d8"],
+[".sema7","#d3e3f6","#d3e3f6"],
+      		
+// support	
+[".supp1","#0f8b8d","#0f8b8d"],
+[".supp2","#734b6d","#734b6d"],
+[".supp3","#4e7599","#4e7599"],
+[".supp4","#c19c31","#c19c31"],
+[".supp5","#546b6b","#546b6b"]
 
-    // semantic
-    // severity
-    "#72cccb",
-    "#e68c17",
-    "#ff5e6c",
-    "#e26bd2",
-    "#928fff",
-
-    // negative alt
-    "#f4cab0",
-    "#f1b7a0",
-    "#eea291",
-    "#e98b82",
-    "#e57373",
-
-    // positive/neutral alt
-    "#80deea",
-    "#4dd0e1",
-    "#26c6da",
-    "#00acc1",
-    "#00a0b7",
-
-    // status & system feedback
-    "#63a621",
-    "#e68c17",
-    "#ff5e6c"
 ];
+
  
 
 
-function switchTheme(selection, documentRoot, sourceArray, destinationArray){
+function switchTheme(selection, sourceIdx, destinationIdx){
 
     // Apply it...
     console.log("Switching HV theme");
@@ -103,13 +77,13 @@ function switchTheme(selection, documentRoot, sourceArray, destinationArray){
     for (let index = 0; index < selection.items.length; index++) {
         const item = selection.items[index];
         
-        processItem(item, sourceArray, destinationArray);
+        processItem(item, sourceIdx, destinationIdx);
         
     }
 }
 
 
-function processItem(item, sourceArray, destinationArray){
+function processItem(item, sourceIdx, destinationIdx){
 
     if ( item instanceof Text){
             
@@ -118,26 +92,26 @@ function processItem(item, sourceArray, destinationArray){
         var styles = item.styleRanges;
 
         styles.map( styleRange => 
-            replaceColor( styleRange, "fill", sourceArray,destinationArray ) 
+            replaceColor( styleRange, "fill", sourceIdx, destinationIdx) 
         )
         item.styleRanges = styles;
     }
     else if (item instanceof Rectangle || item instanceof Ellipse){
 
         //console.log( "Found Rectangle or Ellipse");
-        replaceColor(item,"fill",sourceArray,destinationArray);
-        replaceColor(item,"stroke",sourceArray,destinationArray);
+        replaceColor(item,"fill",sourceIdx, destinationIdx);
+        replaceColor(item,"stroke",sourceIdx, destinationIdx);
     }
     else if( item instanceof Artboard || item instanceof Group ){
         // go one level down
         if( item instanceof Artboard ){
-            replaceColor(item,"fill",sourceArray,destinationArray);
+            replaceColor(item,"fill",sourceIdx, destinationIdx);
         }
 
         console.log("Going one level down...")
         item.children.forEach(function(e,i){
             //console.log("Here..." + e + i)
-            processItem(e, sourceArray, destinationArray)
+            processItem(e, sourceIdx, destinationIdx)
         })
 
     }
@@ -157,11 +131,11 @@ function processItem(item, sourceArray, destinationArray){
 
 }
 
-function replaceColor(elem, property, sourceArray, destinationArray){
+function replaceColor(elem, property,  sourceIdx, destinationIdx){
     
     if( elem[property] ){
 
-        var c = getEquivalentColor(elem[property].toHex(1),sourceArray,destinationArray);
+        var c = getEquivalentColor(elem[property].toHex(1), sourceIdx, destinationIdx);
         if (c){
             // Transforming
             //console.log("Changing color: from " + elem[property].toHex(1) + " to " + c)
@@ -172,29 +146,31 @@ function replaceColor(elem, property, sourceArray, destinationArray){
 }
 
 
-function getEquivalentColor(color, sourceArray, destinationArray){
+function getEquivalentColor(color, sourceIdx, destinationIdx){
 
-    const found = sourceArray.findIndex(element => element == color);
+    const found = THEMES_ARRAY.map( o => o[sourceIdx]).findIndex(element => element == color);
     //console.log("Searching for color: "+ color);
 
     if( found >= 0 ){
-        //console.log("Found color " + color + " in position " + found)
-        return destinationArray[found];
+        console.log("Found "+ THEMES_ARRAY[found][0] + " color " + color + " in position " + found + ". Returning " + THEMES_ARRAY[found][destinationIdx])
+        return THEMES_ARRAY[found][destinationIdx];
     }
 
     return null;
 
 }
 
-function switchToDawn(selection, documentRoot) {
 
-    switchTheme(selection, documentRoot, WICKED_ARRAY, DAWN_ARRAY);
+function switchToDawn(selection) {
+
+    switchTheme(selection, WICKED_THEME, DAWN_THEME);
 
 }
 
-function switchToWicked(selection, documentRoot) {
 
-    switchTheme(selection, documentRoot, DAWN_ARRAY, WICKED_ARRAY);
+function switchToWicked(selection) {
+
+    switchTheme(selection, DAWN_THEME , WICKED_THEME);
 }
 
 
