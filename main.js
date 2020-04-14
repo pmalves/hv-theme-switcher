@@ -3,7 +3,8 @@
  */
 
 
-const {Rectangle, Ellipse, Color, Text, Group, Artboard } = require("scenegraph"); 
+const {Rectangle, Ellipse, Color, Text, Path, Group, Artboard, SymbolInstance, RepeatGrid,
+Polygon, Line } = require("scenegraph"); 
 
 const DAWN_THEME = 1;
 const WICKED_THEME = 2; 
@@ -96,13 +97,14 @@ function processItem(item, sourceIdx, destinationIdx){
         )
         item.styleRanges = styles;
     }
-    else if (item instanceof Rectangle || item instanceof Ellipse){
+    else if (item instanceof Rectangle || item instanceof Ellipse || 
+        item instanceof Path || item instanceof Polygon || item instanceof Line ){
 
         //console.log( "Found Rectangle or Ellipse");
         replaceColor(item,"fill",sourceIdx, destinationIdx);
         replaceColor(item,"stroke",sourceIdx, destinationIdx);
     }
-    else if( item instanceof Artboard || item instanceof Group ){
+    else if( item instanceof Artboard || item instanceof Group || item instanceof SymbolInstance){
         // go one level down
         if( item instanceof Artboard ){
             replaceColor(item,"fill",sourceIdx, destinationIdx);
@@ -115,13 +117,14 @@ function processItem(item, sourceIdx, destinationIdx){
         })
 
     }
-    else if( false ){
-        // go one level down
-        console.log("Going one level down...")
-        item.children.forEach(function(e,i){
-            console.log("Here..." + e + i)
-            // switchTheme(e, sourceArray, destinationArray)
-        })
+    else if( item instanceof SymbolInstance ){
+
+        console.log("Found symbol. We can't edit it...");
+
+    }
+    else if( item instanceof RepeatGrid ){
+
+        // This one belongs to a different edit context... 
 
     }
     else{
@@ -133,15 +136,23 @@ function processItem(item, sourceIdx, destinationIdx){
 
 function replaceColor(elem, property,  sourceIdx, destinationIdx){
     
-    if( elem[property] ){
+    try {
 
-        var c = getEquivalentColor(elem[property].toHex(1), sourceIdx, destinationIdx);
-        if (c){
-            // Transforming
-            //console.log("Changing color: from " + elem[property].toHex(1) + " to " + c)
-            elem[property] = new Color(c); 
+        if( elem[property] ){
+
+            var c = getEquivalentColor(elem[property].toHex(1), sourceIdx, destinationIdx);
+            if (c){
+                // Transforming
+                //console.log("Changing color: from " + elem[property].toHex(1) + " to " + c)
+                
+                    elem[property] = new Color(c);                
+
+            }
         }
-    }
+    } 
+    catch (error) {
+        console.log("Error: " + error);
+    }   
 
 }
 
@@ -152,7 +163,7 @@ function getEquivalentColor(color, sourceIdx, destinationIdx){
     //console.log("Searching for color: "+ color);
 
     if( found >= 0 ){
-        console.log("Found "+ THEMES_ARRAY[found][0] + " color " + color + " in position " + found + ". Returning " + THEMES_ARRAY[found][destinationIdx])
+        //console.log("Found "+ THEMES_ARRAY[found][0] + " color " + color + " in position " + found + ". Returning " + THEMES_ARRAY[found][destinationIdx])
         return THEMES_ARRAY[found][destinationIdx];
     }
 
