@@ -117,7 +117,7 @@ function processItem(item, sourceIdx, destinationIdx){
         }
 
         // Skipping some conditions here...
-        if ( item instanceof Group && !(item.mask instanceof Rectangle) ){
+        if ( item instanceof Group && item.mask ){
             // continue
         }
         else{
