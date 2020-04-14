@@ -4,7 +4,7 @@
 
 
 const {Rectangle, Ellipse, Color, Text, Path, Group, Artboard, SymbolInstance, RepeatGrid,
-Polygon, Line } = require("scenegraph"); 
+Polygon, Line, ImageFill } = require("scenegraph"); 
 
 const DAWN_THEME = 1;
 const WICKED_THEME = 2; 
@@ -95,7 +95,11 @@ function processItem(item, sourceIdx, destinationIdx){
         styles.map( styleRange => 
             replaceColor( styleRange, "fill", sourceIdx, destinationIdx) 
         )
-        item.styleRanges = styles;
+        try {
+            item.styleRanges = styles;            
+        } catch (error) {
+            console.log("Error applying text style...");
+        }
     }
     else if (item instanceof Rectangle || item instanceof Ellipse || 
         item instanceof Path || item instanceof Polygon || item instanceof Line ){
@@ -104,13 +108,13 @@ function processItem(item, sourceIdx, destinationIdx){
         replaceColor(item,"fill",sourceIdx, destinationIdx);
         replaceColor(item,"stroke",sourceIdx, destinationIdx);
     }
-    else if( item instanceof Artboard || item instanceof Group || item instanceof SymbolInstance){
+    else if( item instanceof Artboard || item instanceof Group ){
         // go one level down
         if( item instanceof Artboard ){
             replaceColor(item,"fill",sourceIdx, destinationIdx);
         }
 
-        console.log("Going one level down...")
+        //console.log("Going one level down...")
         item.children.forEach(function(e,i){
             //console.log("Here..." + e + i)
             processItem(e, sourceIdx, destinationIdx)
@@ -138,7 +142,7 @@ function replaceColor(elem, property,  sourceIdx, destinationIdx){
     
     try {
 
-        if( elem[property] ){
+        if( elem[property] && !(elem[property] instanceof ImageFill)){
 
             var c = getEquivalentColor(elem[property].toHex(1), sourceIdx, destinationIdx);
             if (c){
