@@ -108,7 +108,7 @@ function processItem(item, sourceIdx, destinationIdx){
         replaceColor(item,"fill",sourceIdx, destinationIdx);
         replaceColor(item,"stroke",sourceIdx, destinationIdx);
     }
-    else if( item instanceof Artboard || item instanceof Group ){
+    else if( item instanceof Artboard || ( item instanceof Group && !(item.mask instanceof Rectangle) ) ){
         // go one level down
         if( item instanceof Artboard ){
             replaceColor(item,"fill",sourceIdx, destinationIdx);
