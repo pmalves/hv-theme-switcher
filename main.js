@@ -12,6 +12,27 @@ const THEMES_ARRAY = [
 
     // Color Name, Dawn 1.x, Wicked 1.x
 
+	// accent
+    // [".acce0","#ffffff","#ffffff"],
+    [".acce1","#414141","#CCCCCC"],
+    [".acce2","#2064b4","#2064B4"],
+    [".acce2h","#477DBD","#477DBD"],
+    [".acce3","#CC0000","#CC0000"],
+
+    // atmosphere
+    [".atmo1","#FBFCFC","#313131"],
+    [".atmo2","#F0F0F0","#282828"],
+    [".atmo3","#E8E8E8","#1F1F1F"],
+    [".atmo4","#CCCED0","#4B4B4B"],
+    [".atmo5","#999999","#656565"],
+    // [".atmo6","#bcbcbc","#2c2c2c"],
+    // [".atmo7","#999999","#919191"],
+
+
+
+
+
+
     // accent
     // [".acce0","#ffffff","#ffffff"],
     [".acce1","#414141","#dedede"],
