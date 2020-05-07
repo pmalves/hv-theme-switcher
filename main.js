@@ -12,7 +12,21 @@ const THEMES_ARRAY = [
 
     // Color Name, Dawn 1.x, Wicked 1.x
 
-	
+	// accent
+    // [".acce0","#ffffff","#ffffff"],
+    [".acce1","#414141","#cccccc"],
+    [".acce2","#2064b4","#2064b4"],
+    [".acce2h","#477dbd","#477dbd"],
+    [".acce3","#cc0000","#cc0000"],
+
+    // atmosphere
+    [".atmo1","#fbfcfc","#313131"],
+    [".atmo2","#f0f0f0","#282828"],
+    [".atmo3","#e8e8e8","#1f1f1f"],
+    [".atmo4","#ccced0","#4b4b4b"],
+    [".atmo5","#999999","#656565"],
+    // [".atmo6","#bcbcbc","#2c2c2c"],
+    // [".atmo7","#999999","#919191"],
 
 
 
@@ -21,19 +35,19 @@ const THEMES_ARRAY = [
 
     // accent
     // [".acce0","#ffffff","#ffffff"],
-    [".acce1","#414141","#dedede"],
-    [".acce2","#146bd2","#146bd2"],
-    [".acce2h","#4389db","#4389db"],
-    [".acce3","#cc0000","#cc0000"],
+    // [".acce1","#414141","#dedede"],
+    // [".acce2","#146bd2","#146bd2"],
+    // [".acce2h","#4389db","#4389db"],
+    // [".acce3","#cc0000","#cc0000"],
 
     // atmosphere
-    [".atmo1","#ffffff","#393939"],
-    [".atmo2","#f9f9f9","#424242"],
-    [".atmo3","#f5f5f5","#494949"],
-    [".atmo4","#f0f0f0","#545454"],
-    [".atmo5","#dedede","#626262"],
-    [".atmo6","#bcbcbc","#2c2c2c"],
-    [".atmo7","#999999","#919191"],
+    // [".atmo1","#ffffff","#393939"],
+    // [".atmo2","#f9f9f9","#424242"],
+    // [".atmo3","#f5f5f5","#494949"],
+    // [".atmo4","#f0f0f0","#545454"],
+    // [".atmo5","#dedede","#626262"],
+    // [".atmo6","#bcbcbc","#2c2c2c"],
+    // [".atmo7","#999999","#919191"],
 
     // semantic	
     // severity	
@@ -73,23 +87,6 @@ const THEMES_ARRAY = [
     [".supp3","#4e7599","#4e7599"],
     [".supp4","#c19c31","#c19c31"],
     [".supp5","#546b6b","#546b6b"]
-
-
-// accent
-    // [".acce0","#ffffff","#ffffff"],
-    [".acce1","#414141","#CCCCCC"],
-    [".acce2","#2064b4","#2064B4"],
-    [".acce2h","#477DBD","#477DBD"],
-    [".acce3","#CC0000","#CC0000"],
-
-    // atmosphere
-    [".atmo1","#FBFCFC","#313131"],
-    [".atmo2","#F0F0F0","#282828"],
-    [".atmo3","#E8E8E8","#1F1F1F"],
-    [".atmo4","#CCCED0","#4B4B4B"],
-    [".atmo5","#999999","#656565"],
-    // [".atmo6","#bcbcbc","#2c2c2c"],
-    // [".atmo7","#999999","#919191"],
 
 ];
 
