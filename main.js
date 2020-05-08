@@ -28,7 +28,10 @@ const THEMES_ARRAY = [
     // [".atmo6","#bcbcbc","#2c2c2c"],
     // [".atmo7","#999999","#919191"],
 
-
+    // tweaks
+    [".logo","#000000","#ffffff"],
+    [".shadow","#404040","#212121"],
+    [".selectednav","#d00000","#cecece"],
 
 
 
