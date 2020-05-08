@@ -30,8 +30,9 @@ const THEMES_ARRAY = [
 
     // tweaks
     [".logo","#000000","#ffffff"],
-    [".shadow","#404040","#212121"],
+    [".shadow","#d8d8d8","#212121"],
     [".selectednav","#d00000","#cecece"],
+    
 
 
 
