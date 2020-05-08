@@ -10,6 +10,7 @@ const DAWN_THEME = 1;
 const WICKED_THEME = 2; 
 const THEMES_ARRAY = [
 
+
     // Color Name, Dawn 1.x, Wicked 1.x
 
 	// accent
