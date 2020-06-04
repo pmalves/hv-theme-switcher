@@ -161,7 +161,7 @@ function replaceColor(elem, property,  sourceIdx, destinationIdx){
 	if( arrLocation.length == 1 ){
 	    value = elem[arrLocation[0]];
 	}
-	else if ( arrLocation.length == 2 ){
+	else if ( arrLocation.length == 2 && elem[arrLocation[0]] != null ){
 	    value = elem[arrLocation[0]][arrLocation[1]];
 	}
 	else{
